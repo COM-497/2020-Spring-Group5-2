@@ -69,6 +69,27 @@ async function main() {
         password: "test"
       }
     );
+
+    await createMultipleOrganizations(client, [
+     
+     {
+      orgName: "YMCA",
+      type: "International non-governmental",
+      description: "Committed to strengthening community by connecting all people to their potential, purpose and each other. Working locally, we focus on empowering young people, improving health and well-being and inspiring action in and across communities.",
+      email: "ymca@email.com",
+      password: "test"
+     }, 
+     {
+      orgName: "Girls on the Run Greater Tampa Bay",
+      type: "Non-profit",
+      description: "A life-changing program for 8- to 13-year-old girls that promotes girl empowerment by teaching life skills through lessons and running.",
+      email: "gotr@email.com",
+      password: "test"
+     }
+    ]
+    );
+
+
   } 
   catch (e) {
     console.error(e);   
@@ -78,6 +99,12 @@ async function main() {
 }
  main().catch(console.error);  
           
+ async function createMultipleOrganizations(client, newOrganizations){
+  const result = await client.db("charinforg").collection("organization").insertMany(newOrganizations);
+  console.log(`${result.insertedCount} new organization(s) created with the following ids: `);
+  console.log(result.insertedIds);
+ }
+
  async function createUser(client, newUser){
   const result = await client.db("charinforg").collection("user").insertOne(newUser);
   console.log(`New user created with the following id: ${result.insertedId}`);
