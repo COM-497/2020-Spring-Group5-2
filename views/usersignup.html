@@ -4,7 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Charinforg!</title>
+    <title>Charinforg</title>
 
     <!---CDN Links-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -41,12 +41,41 @@
                 </li>
               </ul>
               <ul class="nav navbar-nav navbar-right">
-        <li><a href="/userororg"><button type="button" class="btn btn-light"> Sign Up </button></li>
-          <li><a href="/login"><button type="button" class="btn btn-primary"> Login </button></li>
-      </ul>
+                <li><a href="/userororg"><button type="button" class="btn btn-light"> Sign Up </button></li>
+                  <li><a href="/login"><button type="button" class="btn btn-primary"> Login </button></li>
+              </ul>
             </div>
 </div>
       </nav>
+
+      <br> 
+    <br> 
+    <br> 
+    <div class="container" id="wrap">
+        <div class="row">
+          <div class="col-md-6 col-md-offset-3">
+              <form action="/signup" method="post" accept-charset="utf-8" class="form" role="form">   <legend>Sign Up</legend></br>
+
+                      <div class="row">
+                          <div class="col-xs-6 col-md-6">
+                              <input type="text" name="firstname" value="" class="form-control input-lg" placeholder="First Name"  />                        </div>
+                          <div class="col-xs-6 col-md-6">
+                              <input type="text" name="lastname" value="" class="form-control input-lg" placeholder="Last Name"  />                        </div>
+                      </div>
+                    </br>
+                      <input type="text" name="email" value="" class="form-control input-lg" placeholder="Your Email"  />
+                    </br>
+                      <input type="password" name="password" value="" class="form-control input-lg" placeholder="Password"  />
+                    </br>
+                      <input type="password" name="confirm_password" value="" class="form-control input-lg" placeholder="Confirm Password"  />
+                    </br>
+
+                      <input type="submit" value="Create new user account">
+              </form>          
+            </div>
+  </div>            
+  </div>
+  </div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

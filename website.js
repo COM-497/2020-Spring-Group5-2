@@ -27,6 +27,22 @@ router.get('/support',function(req, res){
   res.sendFile(path + 'support.html');
 });
 
+router.get('/login',function(req, res){
+  res.sendFile(path + 'login.html');
+});
+
+router.get('/orgsignup',function(req, res){
+  res.sendFile(path + 'orgsignup.html');
+});
+
+router.get('/usersignup',function(req, res){
+  res.sendFile(path + 'usersignup.html');
+});
+
+router.get('/userororg',function(req, res){
+  res.sendFile(path + 'userororg.html');
+});
+
 app.use('*',function(req, res){
   res.send('Error 404: Not Found!');
 });
