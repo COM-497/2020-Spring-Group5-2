@@ -36,6 +36,17 @@ router.get('/orgsignup',function(req, res){
   res.sendFile(path + 'orgsignup.html');
 });
 
+router.post('/orgsignup', (req, res) => {   
+  let body = '';     
+  req.on('data', chunk => {         
+    body += chunk.toString(); // convert Buffer to string
+});
+req.on('end', () => {
+    console.log(body);
+    res.sendFile(path + "myprofile.html");
+});  
+});
+
 router.get('/usersignup',function(req, res){
   res.sendFile(path + 'usersignup.html');
 });
