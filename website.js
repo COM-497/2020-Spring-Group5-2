@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 var router = express.Router();
 const {MongoClient} = require('mongodb');
+const {parse} = require('querystring');
 
 var path = __dirname + '/views/';
   
@@ -41,9 +42,19 @@ router.post('/orgsignup', (req, res) => {
   req.on('data', chunk => {         
     body += chunk.toString(); // convert Buffer to string
 });
+
 req.on('end', () => {
-    console.log(body);
-    res.sendFile(path + "myprofile.html");
+  var value = parse(body);
+    if(value['password'].localeCompare(value['confirmPassword'])){
+      console.log('Password match');
+      var queryString = require('querystring');
+      var org = queryString.parse('organization='+value['organization']+'&type='+value['type']+'&description='+value['description']+'&email='+value['email']+'&password='+value['password']);
+      insertOrganization(org);
+      console.log(org);
+    }
+      
+
+  res.sendFile(path + "myprofile.html");
 });  
 });
 
@@ -64,7 +75,25 @@ app.listen(3000,function(){
   console.log("Server running at Port 3000");
 });
 
-async function main() {   
+async function insertOrganization(newOrganization) {
+  const uri = "mongodb+srv://brianay:charinforg@mycluster-iw4qo.mongodb.net/test?retryWrites=true&w=majority";   
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });       
+
+  try {     
+    await client.connect();   
+
+    const result = await client.db("charinforg").collection("organization").insertOne(newOrganization);
+  console.log(`${result.insertedCount} new organization created with the following id: `);
+  console.log(result.insertedId);
+    }
+  catch (e) {
+    console.error(e);   
+} finally {     
+    await client.close();   
+  }
+}  
+
+/*async function main() {   
   const uri = "mongodb+srv://brianay:charinforg@mycluster-iw4qo.mongodb.net/test?retryWrites=true&w=majority";   
   const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });       
 
@@ -84,14 +113,14 @@ async function main() {
     await createMultipleOrganizations(client, [
      
      {
-      orgName: "YMCA",
+      organization: "YMCA",
       type: "International non-governmental",
       description: "Committed to strengthening community by connecting all people to their potential, purpose and each other. Working locally, we focus on empowering young people, improving health and well-being and inspiring action in and across communities.",
       email: "ymca@email.com",
       password: "test"
      }, 
      {
-      orgName: "Girls on the Run Greater Tampa Bay",
+      organization: "Girls on the Run Greater Tampa Bay",
       type: "Non-profit",
       description: "A life-changing program for 8- to 13-year-old girls that promotes girl empowerment by teaching life skills through lessons and running.",
       email: "gotr@email.com",
@@ -120,3 +149,4 @@ async function main() {
   const result = await client.db("charinforg").collection("user").insertOne(newUser);
   console.log(`New user created with the following id: ${result.insertedId}`);
 }
+*/
