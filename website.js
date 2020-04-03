@@ -45,13 +45,17 @@ router.post('/orgsignup', (req, res) => {
 
 req.on('end', () => {
   var value = parse(body);
-    if(value['password'].localeCompare(value['confirmPassword'])){
-      console.log('Password match');
+  var a = value['password'];
+  var b = value['confirm_password'];
+    if(a == b){
+      console.log('Passwords match');
       var queryString = require('querystring');
       var org = queryString.parse('organization='+value['organization']+'&type='+value['type']+'&description='+value['description']+'&email='+value['email']+'&password='+value['password']);
       insertOrganization(org);
       console.log(org);
-      res.redirect('/myprofile')
+      res.redirect('/myprofile') 
+    }else {
+      res.send('Passwords do not match');
     }
   
 });  
@@ -59,6 +63,30 @@ req.on('end', () => {
 
 router.get('/usersignup',function(req, res){
   res.sendFile(path + 'usersignup.html');
+});
+
+router.post('/usersignup', (req, res) => {   
+  let body = '';     
+  req.on('data', chunk => {         
+    body += chunk.toString(); // convert Buffer to string
+});
+
+req.on('end', () => {
+  var value = parse(body);
+  var a = value['password'];
+  var b = value['confirm_password'];
+    if(a == b){
+      console.log('Passwords match');
+      var queryString = require('querystring');
+      var user = queryString.parse('firstname='+value['firstName']+'&lastname='+value['lastName']+'&email='+value['email']+'&password='+value['password']);
+      insertUser(user);
+      console.log(user);
+      res.redirect('/myprofile') 
+    }else {
+      res.send('Passwords do not match');
+    }
+  
+});  
 });
 
 router.get('/userororg',function(req, res){
@@ -83,6 +111,24 @@ async function insertOrganization(newOrganization) {
 
     const result = await client.db("charinforg").collection("organization").insertOne(newOrganization);
   console.log(`${result.insertedCount} new organization created with the following id: `);
+  console.log(result.insertedId);
+    }
+  catch (e) {
+    console.error(e);   
+} finally {     
+    await client.close();   
+  }
+}  
+
+async function insertUser(newUser) {
+  const uri = "mongodb+srv://brianay:charinforg@mycluster-iw4qo.mongodb.net/test?retryWrites=true&w=majority";   
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });       
+
+  try {     
+    await client.connect();   
+
+    const result = await client.db("charinforg").collection("user").insertOne(newUser);
+  console.log(`${result.insertedCount} new user created with the following id: `);
   console.log(result.insertedId);
     }
   catch (e) {
