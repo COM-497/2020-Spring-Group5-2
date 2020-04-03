@@ -51,10 +51,9 @@ req.on('end', () => {
       var org = queryString.parse('organization='+value['organization']+'&type='+value['type']+'&description='+value['description']+'&email='+value['email']+'&password='+value['password']);
       insertOrganization(org);
       console.log(org);
+      res.redirect('/myprofile')
     }
-      
-
-  res.sendFile(path + "myprofile.html");
+  
 });  
 });
 
