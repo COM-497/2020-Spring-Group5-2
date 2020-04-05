@@ -1,8 +1,6 @@
 var express = require('express');
 var app = express();
 var router = express.Router();
-var passport = require('passport')
-LocalStrategy = require('passport-local').Strategy;
 const {MongoClient} = require('mongodb');
 const {parse} = require('querystring');
 
@@ -34,11 +32,6 @@ router.get('/support',function(req, res){
 router.get('/login',function(req, res){
   res.sendFile(path + 'login.html');
 });
-
-app.post('/login',
-  passport.authenticate('local', { successRedirect: '/myprofile',
-                                   failureRedirect: '/' })
-);
 
 router.get('/orgsignup',function(req, res){
   res.sendFile(path + 'orgsignup.html');
@@ -240,20 +233,3 @@ async function insertEvent(newEvent) {
   console.log(`New user created with the following id: ${result.insertedId}`);
 }
 */
-
-passport.use(new LocalStrategy({
-  usernameField: 'email'
-},
-  function(username, password, done) {
-    User.findOne({ email: email }, function(err, user) {
-      if (err) { return done(err); }
-      if (!user) {
-        return done(null, false, { message: 'Incorrect username.' });
-      }
-      if (!user.validPassword(password)) {
-        return done(null, false, { message: 'Incorrect password.' });
-      }
-      return done(null, user);
-    });
-  }
-));
