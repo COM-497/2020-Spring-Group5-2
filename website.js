@@ -74,7 +74,7 @@ router.post('/eventForm', (req, res) => {
 req.on('end', () => {
   var value = parse(body);
       var queryString = require('querystring');
-      var event = queryString.parse('&organization='+value['organization']+'event='+value['event']+'dateOfEvent='+value['date']+'&descriptionEvent='+value['descriptionEvent']+'&typeOfEvent='+value['type']+'&descriptionOfOrg='+value['descriptionOrg']+'&contactToDonors='+value['contact']+'&goal='+value['goal']+'&whereMoneyGoes='+value['whereMoneyGoes']);
+      var event = queryString.parse('&organization='+value['organization']+'&event='+value['event']+'&dateOfEvent='+value['date']+'&descriptionEvent='+value['descriptionEvent']+'&typeOfEvent='+value['type']+'&descriptionOfOrg='+value['descriptionOrg']+'&contactToDonors='+value['contact']+'&goal='+value['goal']+'&whereMoneyGoes='+value['whereMoneyGoes']);
       insertEvent(event);
       console.log(event);
       res.redirect('/events') 
