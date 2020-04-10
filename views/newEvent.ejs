@@ -1,0 +1,114 @@
+<% include ./partials/loginheader %>      
+<div class="row mt-5">
+  <div class="col-md-6 m-auto">
+    <div class="card card-body">
+      <h1 class="text-center mb-3">
+      </h1>
+      <% include ./partials/messages %>
+          <form action="/newEvent" method="post">
+            <div class="form-group">
+              <label for="eventName">Name of Event</label>
+              <input
+                type="text"
+                id="eventName"
+                name="eventName"
+                class="form-control"
+                placeholder="Enter Event Name"
+                value="<%= typeof eventName != 'undefined' ? eventName : '' %>"
+              />
+          </div>
+            <div class="form-group">
+                <label for="organization">Name of Organization</label>
+                <input
+                  type="text"
+                  id="organization"
+                  name="organization"
+                  class="form-control"
+                  placeholder="Enter Name of Organization"
+                  value="<%= typeof organization != 'undefined' ? organization : '' %>"
+                />
+            </div>
+            <div class="form-group">
+                <label for="date">Date of Event</label>
+                <input
+                  type="date"
+                  id="date"
+                  name="date"
+                  class="form-control"
+                  placeholder="Enter Date of Event"
+                  value="<%= typeof date != 'undefined' ? date : '' %>"
+                />
+            </div>
+            <div class="form-group">
+                <label for="descriptionEvent">Description of Event</label>
+                <input
+                  type="text"
+                  id="descriptionEvent"
+                  name="descriptionEvent"
+                  class="form-control"
+                  placeholder="Enter Description of Event"
+                  value="<%= typeof descriptionEvent != 'undefined' ? descriptionEvent : '' %>"
+                />
+            </div>
+            <div class="form-group">
+                <label for="type">Type of Event</label>
+                <input
+                  type="text"
+                  id="type"
+                  name="type"
+                  class="form-control"
+                  placeholder="Enter Type of Event"
+                  value="<%= typeof type != 'undefined' ? type : '' %>"
+                />
+            </div>
+            <div class="form-group">
+                <label for="descriptionOrg">Description of Organization</label>
+                <input
+                  type="text"
+                  id="descriptionOrg"
+                  name="descriptionOrg"
+                  class="form-control"
+                  placeholder="Enter Description of Organization"
+                  value="<%= typeof descriptionOrg != 'undefined' ? descriptionOrg : '' %>"
+                />
+            </div>
+            <div class="form-group">
+                <label for="contact">Contact of Organization</label>
+                <input
+                  type="text"
+                  id="contact"
+                  name="contact"
+                  class="form-control"
+                  placeholder="Enter Contact that Donor may inquire"
+                  value="<%= typeof contact != 'undefined' ? contact : '' %>"
+                />
+            </div>
+            <div class="form-group">
+                <label for="goal">Goal Donations</label>
+                <input
+                  type="number"
+                  id="goal"
+                  name="goal"
+                  class="form-control"
+                  placeholder="Enter Goal Amount of Donations"
+                  value="<%= typeof goal != 'undefined' ? goal : '' %>"
+                />
+            </div>
+            <div class="form-group">
+                <label for="whereMoneyGoes">Goal Donations</label>
+                <input
+                  type="text"
+                  id="whereMoneyGoes"
+                  name="whereMoneyGoes"
+                  class="form-control"
+                  placeholder="Enter where Donations will go"
+                  value="<%= typeof whereMoneyGoes != 'undefined' ? whereMoneyGoes : '' %>"
+                />
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">
+                Create a New Event
+              </button>
+            </form>    
+        </div>
+</div>  
+</div>

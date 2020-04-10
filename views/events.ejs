@@ -1,0 +1,20 @@
+<% include ./partials/header %>      
+
+<h1 class="mt-4">Events</h1>
+<a href="/newEvent" class="btn btn-secondary">New Event</a>
+
+<% events.forEach(events => { %>
+<div class="card">
+    <div class="card-header">
+        <%= `${events.eventName}` %>
+    </div>
+    <div class="card-body">
+      <h5 class="card-title"><%= `Hosted by: ${events.eventName}` %></h5>
+      <p class="card-text"><%= `${events.descriptionEvent}` %></p>
+      <a href="#" class="btn btn-primary">Learn More</a>
+      <a href="#" class="btn btn-primary">Donate Now</a>
+    </br>
+    </div>
+  </div>
+  <% }); %>
+
