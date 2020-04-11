@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
-// Load User model
+
+// Load User Model
 const User = require('../models/User');
 const { forwardAuthenticated } = require('../config/auth');
 
@@ -12,7 +13,7 @@ router.get('/login', forwardAuthenticated, (req, res) => res.render('login'));
 // Register Page
 router.get('/register', forwardAuthenticated, (req, res) => res.render('register'));
 
-// Register
+// Register User
 router.post('/register', (req, res) => {
   const { name, email, password, password2 } = req.body;
   let errors = [];
@@ -64,7 +65,7 @@ router.post('/register', (req, res) => {
               .then(user => {
                 req.flash(
                   'success_msg',
-                  'You are now registered and can log in'
+                  'You are now registered as a user and can log in'
                 );
                 res.redirect('/users/login');
               })
@@ -76,7 +77,7 @@ router.post('/register', (req, res) => {
   }
 });
 
-// Login
+// User Login
 router.post('/login', (req, res, next) => {
   passport.authenticate('local', {
     successRedirect: '/myprofile',
@@ -85,7 +86,7 @@ router.post('/login', (req, res, next) => {
   })(req, res, next);
 });
 
-// Logout
+// User Logout
 router.get('/logout', (req, res) => {
   req.logout();
   req.flash('success_msg', 'You are logged out');

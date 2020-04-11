@@ -39,8 +39,8 @@ app.use(
   })
 );
 
-// Passport middleware
-app.use(passport.initialize());
+// Passport user middleware
+app.use(passport.initialize({ userProperty: "user" }));
 app.use(passport.session());
 
 // Connect flash
@@ -54,9 +54,17 @@ app.use(function(req, res, next) {
   next();
 });
 
+// Login middleware
+app.use(function (req, res, next) {
+  res.locals.login = req.isAuthenticated();
+  next();
+});
+
 // Routes
 app.use('/', require('./routes/index.js'));
 app.use('/users', require('./routes/users.js'));
+app.use('/organization', require('./routes/organization.js'));
+
 
 const PORT = process.env.PORT || 3000;
 

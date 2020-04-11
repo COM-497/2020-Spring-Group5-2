@@ -27,6 +27,12 @@ router.get('/myprofile', ensureAuthenticated, (req, res) =>
   })
 );
 
+// User or Organization Register
+router.get('/userororg_register', (req, res) => res.render('userororg_register'));
+
+// User or Organization Login
+router.get('/userororg_login', (req, res) => res.render('userororg_login'));
+
 // Create New Event Form
 router.get('/newEvent', ensureAuthenticated, (req, res) => res.render('newEvent'));
 
