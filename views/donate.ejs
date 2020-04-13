@@ -1,0 +1,17 @@
+<% include ./partials/header %>      
+
+<h1>Donate Here</h1>
+<form action="/pay" method="post">
+    <div class="form-group">
+        <label for="amount">Amount you would like to donate: </label>
+        <input
+          type="number"
+          id="amount"
+          name="amount"
+          class="form-control"
+          placeholder="Enter the amount you would like to donate"
+          value=""
+        />
+    </div>
+    <input type="submit" value="Donate">
+</form>
