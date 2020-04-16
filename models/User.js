@@ -9,13 +9,16 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  userororg: {
+    type: String
+  },
   password: {
     type: String,
     required: true
   },
   date: {
     type: Date,
-    default: Date.now
+    default: Date
   }
 });
 
