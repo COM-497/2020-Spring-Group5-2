@@ -3,19 +3,25 @@
   <div class="col-md-6 m-auto">
     <div class="card card-body">
       <h1 class="text-center mb-3">
-        <i class="fas fa-user-plus"></i> Register as an Organization
+        <i class="fas fa-user-plus"></i> Register
       </h1>
       <% include ./partials/messages %>
-      <form action="/organization/orgregister" method="POST">
+      <form action="/users/register" method="POST">
+        <div class="form-group">
+          <label for="userororg"></label>
+          <select class="form-control" id="userororg">
+                <option value="org">Organization</option>
+          </select>
+        </div>
         <div class="form-group">
           <label for="name">Organization Name</label>
           <input
-            type="text"
-            id="orgName"
-            name="orgName"
+            type="name"
+            id="name"
+            name="name"
             class="form-control"
-            placeholder="Enter Organization Name"
-            value="<%= typeof orgName != 'undefined' ? orgName : '' %>"
+            placeholder="Enter Name"
+            value="<%= typeof name != 'undefined' ? name : '' %>"
           />
         </div>
         <div class="form-group">
@@ -55,7 +61,7 @@
           Register
         </button>
       </form>
-      <p class="lead mt-4">Have An Account? <a href="/organization/orglogin">Login</a></p>
+      <p class="lead mt-4">Have An Account? <a href="/users/login">Login</a></p>
     </div>
   </div>
 </div>

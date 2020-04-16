@@ -1,12 +1,14 @@
 <% include ./partials/header %>      
 
+<div class="container">
+<% events.forEach(events => { %>
 <div class="jumbotron">
     <h1 class="display-4"><%= `${events.eventName}` %></h1>
     <p class="lead"><%= `Hosted by: ${events.organization}` %></p>
     <hr class="my-4">
     <p><%= `${events.descriptionEvent}` %></p>
     <p class="lead">
-      <a class="btn btn-primary btn-lg" href="#" role="button">Donate Now</a>
+      <a class="btn btn-primary btn-lg" href="/donate" role="button">Donate Now</a>
     </p>
   </div>
 
@@ -17,3 +19,5 @@
     <li class="list-group-item"><%= `Help us reach our goal of ${events.goal}` %></li>
     <li class="list-group-item"><%= `All proceeds go to ${events.whereMoneyGoes}` %></li>
   </ul>
+  <% }); %>
+</div>

@@ -1,20 +1,38 @@
 <% include ./partials/header %>      
 
+<div class="container">
 <h1 class="mt-4">Events</h1>
 <a href="/newEvent" class="btn btn-secondary">New Event</a>
 
+</br>
+</br>
+
+<form action="/events" method="GET" class="form-inline">
+  <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+  <button class="btn btn-outline-success" type="submit">Search</button>
+</form>
+
+</br>
+</br>
+
 <% events.forEach(events => { %>
 <div class="card">
-    <div class="card-header">
-        <%= `${events.eventName}` %>
+    <div id="eventName" class="card-header">
+        <%= `${events.eventName}` %> 
     </div>
     <div class="card-body">
       <h5 class="card-title"><%= `Hosted by: ${events.organization}` %></h5>
       <p class="card-text"><%= `${events.descriptionEvent}` %></p>
-      <a href="/learnmore" class="btn btn-primary">Learn More</a>
+
+      <script>
+        var link = "/learnmore?eventName=" + document.getElementById("eventName");
+        document.getElementById("eventId").href=link;
+      </script>
+
+      <a href="#" id="eventId" class="btn btn-primary">Learn More</a>
       <a href="/donate" class="btn btn-primary">Donate Now</a>
     </br>
     </div>
   </div>
   <% }); %>
-
+</div>

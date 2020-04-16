@@ -23,7 +23,7 @@
               <li class="nav-item">
                 <a class="nav-link" href="/support">Support</a>
               </li>
-              <form action="/search" method="post" class="form-inline my-2 my-lg-0">
+              <form action="/search" method="GET" class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
               </form>
@@ -33,7 +33,7 @@
           <li><a href="/users/logout"><button type="button" class="btn btn-primary"> Logout </button></a></li>
           <% } else{ %> 
           <li><a href="/userororg_register"><button type="button" class="btn btn-light"> Sign Up </button></a></li>
-          <li><a href="/userororg_login"><button type="button" class="btn btn-primary"> Login </button></a></li>
+          <li><a href="/users/login"><button type="button" class="btn btn-primary"> Login </button></a></li>
           <% } %>
         </ul>
           </div>
