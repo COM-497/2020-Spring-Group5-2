@@ -3,10 +3,6 @@ const router = express.Router();
 const paypal = require('paypal-rest-sdk');
 const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
 
-// Require Event Controller
-const eventsController = require('../controllers/eventsController')
-const eventInfoController = require('../controllers/eventInfoController')
-
 // Configure Paypal
 paypal.configure({
   'mode': 'sandbox', //sandbox or live
@@ -21,25 +17,54 @@ const Event = require('../models/Event');
 // Welcome Page
 router.get('/', forwardAuthenticated, (req, res) => res.render('welcome'));
 
+router.get("/events", function(req, res){
+  var noMatch = null;
+  if(req.query.search) {
+      const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+      // Get all campgrounds from DB
+      Event.find({eventName: regex}, function(err, allEvents){
+         if(err){
+             console.log(err);
+         } else {
+            if(allEvents.length < 1) {
+                noMatch = "No events match that query, please try again.";
+            }
+            res.render("events",{events:allEvents, noMatch: noMatch});
+         }
+      });
+  } else {
+      // Get all events from DB
+      Event.find({}, function(err, allEvents){
+         if(err){
+             console.log(err);
+         } else {
+            res.render("events",{events:allEvents, noMatch: noMatch});
+         }
+      });
+  }
+});
+
+function escapeRegex(text) {
+  return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
+
 // About Us Page
 router.get('/about', (req, res) => res.render('about'));
 
-// Events Page
-router.get("/events", eventsController.getAllEvents,
- (req, res, next) => {
-  console.log(req.data);
-  res.render('events', {events: req.data});
-});
+router.get("/donate", ensureAuthenticated, (req, res) => res.render('donate'));
 
-// Learn More About Event Page
-router.get("/learnmore", eventInfoController.getOneEvent,
- (req, res, next) => {
-  console.log(req.data);
-  data = req.data
-  res.render('learnmore', {events: req.data});
-});
 
-router.get('/donate', ensureAuthenticated, (req, res) => res.render('donate'));
+router.get("/learnmore/:id", function(req, res){
+  //find the event with provided ID
+  Event.findById(req.params.id).exec(function(err, foundEvent){
+    if(err){
+      console.log(err);
+  } else {
+      console.log(foundEvent);
+          res.render("learnmore", {events:foundEvent});
+  }
+  });
+});
 
 router.post('/pay', (req, res) => {
   price = req.body.amount;
@@ -116,22 +141,22 @@ router.get('/successfulDonation', (req, res) => res.render('successfulDonation')
   res.render('events', {events: req.data});
 });
 */
-
-router.post('/search', (req, res) => {   
-  let body = '';     
-  req.on('data', chunk => {         
-    body += chunk.toString(); // convert Buffer to string
-});
-req.on('end', () => {
-  Event.findOne({ 'eventName': body }).toArray( (err, results) => {
-    console.log('got search')
-    res.send(results)});
-    });
+/*
+router.get('/search', (req, res) => {   
+  if(req.query.search) {
+    const regex = new RegExp(escapeRegex(req.query.search), 'gi');    
+    Event.find( {eventName: regex}, (err, events) => {
+      if (err) {
+        console.log(err);
+   } else {
+     res.render('events', {events: req.data});
+   }
   });
 
-
-
-
+  function escapeRegex(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
+*/
 
 // My Profile Page
 router.get('/myprofile', ensureAuthenticated, (req, res) =>
