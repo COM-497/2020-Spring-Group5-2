@@ -48,12 +48,6 @@ function escapeRegex(text) {
   return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 };
 
-// About Us Page
-router.get('/about', (req, res) => res.render('about'));
-
-router.get("/donate", ensureAuthenticated, (req, res) => res.render('donate'));
-
-
 router.get("/learnmore/:id", function(req, res){
   //find the event with provided ID
   Event.findById(req.params.id).exec(function(err, foundEvent){
@@ -65,6 +59,12 @@ router.get("/learnmore/:id", function(req, res){
   }
   });
 });
+
+// About Us Page
+router.get('/about', (req, res) => res.render('about'));
+
+//Donation Page
+router.get("/donate", ensureAuthenticated, (req, res) => res.render('donate'));
 
 router.post('/pay', (req, res) => {
   price = req.body.amount;
