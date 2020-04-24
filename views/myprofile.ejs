@@ -1,6 +1,44 @@
 <% include ./partials/header %>      
 
+
 <div class="container">
-<h1 class="mt-4">My Profile</h1>
-<p class="lead mb-3">Welcome <%= user.name %></p>
-</div>  
+
+<h1 class="mt-4">Welcome</h1>
+<p class="lead mb-3"> <%= user.name %></p> 
+  
+
+<!-- import the embedding sdk -->
+<script src="https://unpkg.com/@mongodb-js/charts-embed-dom@next"></script>
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script>
+  $( document ).ready(function() {
+    $("#refresh").on("click", () => {
+      chart.refresh();
+    });
+  });
+</script>
+</head>
+<body>
+<h1>Embedded Chart Demo</h1>
+<button id="refresh">Refresh Chart</button>
+<div id="chart"></div>
+<script>
+  const sdk = new ChartsEmbedSDK({
+    baseUrl: 'https://charts.mongodb.com/charts-project-0-zwmod'
+  });
+
+  // when using npm:
+  // import ChartsEmbedSDK from '@mongodb-js/charts-embed-dom';
+
+  const chart = sdk
+    .createChart({
+      chartId: 'c3869869-1670-4e19-820e-21c5552fff4a',
+      width: 500,
+      height: 500,
+      refreshInterval: 300
+    });
+
+  chart.render(document.getElementById('chart'));
+</script>
+
+</div> 
